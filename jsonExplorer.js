@@ -25,7 +25,11 @@ function TraverseJson(jObjectValues, site) {
 		for (const i in jObjectValues) {
 			jsonId = i;
 			adapter.log.debug(`Write state '${jsonId}' with value '${jObjectValues[i]}' and type '${typeof (jObjectValues[i])}'`);
-			value = jObjectValues[i][0];
+			if(Array.isArray(jObjectValues[i])){
+				value = jObjectValues[i][0];
+			}else{
+				value = jObjectValues[i];
+			}
 
 			//avoid state creation if empty
 			if (value != "[]") {
