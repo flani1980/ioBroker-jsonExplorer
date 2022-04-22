@@ -137,6 +137,7 @@ async function stateSetCreate(siteObj, name, value, expire = 0) {
 		common.write = stateAttr[name] !== undefined ? stateAttr[name].write || false : false;
 		common.states = stateAttr[name] !== undefined ? stateAttr[name].states || {} : {};
 		common.modify = stateAttr[name] !== undefined ? stateAttr[name].modify || "" : "";
+		common.desc = name;
 		adapter.log.debug(`MODIFY to ${name}: ${JSON.stringify(common.modify)}`);
 
 		const objName = buildObjectId(stateAttr[name], siteObj);
@@ -151,6 +152,7 @@ async function stateSetCreate(siteObj, name, value, expire = 0) {
                     || common.write !== adapter.createdStatesDetails[objName].write
                     || common.states !== adapter.createdStatesDetails[objName].states
                     || common.modify !== adapter.createdStatesDetails[objName].modify
+					|| common.desc !== adapter.createdStatesDetails[objName].desc
                 )
             )) {
 			adapter.log.debug(`Attribute definition changed for '${objName}' with '${JSON.stringify(common)}'`);
